@@ -1,0 +1,27 @@
+<%- include("./partials/header.ejs") %>
+<%- include("./partials/navbar.ejs") %>
+<div class="p-6 space-y-6">
+    <form action="/update/<%= update._id %>" method="post">
+        <div class="flex flex-col gap-3">
+            <div class="col-span-6 sm:col-span-3">
+                <label for="product-name" class="text-sm font-medium text-gray-900 block mb-2">Title</label>
+                <input type="text" name="title" id="product-name" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="Title of your blog" value="<%= update.title %>" required="" >
+            </div>
+            <div class="col-span-6 sm:col-span-3">
+                <label for="brand" class="text-sm font-medium text-gray-900 block mb-2">blog</label>
+                <input type="text" name="blog" id="brand" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5" placeholder="blog" value="<%= update.blog %>" required="">
+            </div>
+
+            <div class="col-span-full">
+                <label for="product-details" class="text-sm font-medium text-gray-900 block mb-2">Description</label>
+                <textarea id="product-details" name="description" value="<%= update.description %>" rows="6" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-4" placeholder="Description"></textarea>
+            </div>
+        </div>
+
+        <div class="p-6 border-t border-gray-200 rounded-b">
+            <button class="text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Create</button>
+        </div>
+    </form>
+</div>
+
+<%- include("./partials/footer.ejs") %>
