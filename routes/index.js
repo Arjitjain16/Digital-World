@@ -85,9 +85,25 @@ router.post('/register-user',async function(req, res, next) {
 router.get('/login', function(req, res, next) {
   res.render('login');
 });
+router.post('/login-user',passport.authenticate("local", 
+  {
+    successRedirect :"/profile",
+    failureRedirect : "/login"
+  }),
+  function(req,res,next){}
+);
+
 
 router.get('/contact', function(req, res, next) {
   res.render('contact');
 });
+
+function isloggedIn(req, res, next){
+  if (req.authenticated()){
+    return next()
+  }else{
+    res.redirect("/login")
+  }
+}
 
 module.exports = router;
