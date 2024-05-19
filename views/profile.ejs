@@ -1,0 +1,9 @@
+<%- include("./partials/header.ejs") %>
+<%- include("./partials/navbar.ejs") %>
+<h1>Hii this is our profile</h1>
+
+<div class=" m-h-full bg-blue-600 w-1/3 py-3 rounded absolute top-[90%] left-[40%] flex item-center gap-4 px-5">
+    <a href="/logout/<%= user._id %>">logout</a>
+    <a href="#">update-password</a>
+</div>
+<%- include("./partials/footer.ejs") %>

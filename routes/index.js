@@ -10,7 +10,7 @@ passport.use(new LocalStategy(registerUser.authenticate()))
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index',);
+  res.render('index');
 })
 
 // blog creat
@@ -50,7 +50,7 @@ router.get('/delete/:id', async function(req, res, next) {
 router.get('/update/:id', async function(req, res, next) {
   try {
     const updateBlog = await User.findById(req.params.id)
-    res.render("update", {update : updateBlog})
+    res.render("update", {update : updateBlog} )
   } catch (error) {
     console.log(error);
   }
@@ -69,7 +69,7 @@ router.post('/update/:id', async function(req, res, next) {
 // register
 
 router.get('/register', function(req, res, next) {
-  res.render('register');
+  res.render('register',{user : req.user});
 });
 router.post('/register-user',async function(req, res, next) {
   try {
@@ -83,7 +83,7 @@ router.post('/register-user',async function(req, res, next) {
 
 //login
 router.get('/login', function(req, res, next) {
-  res.render('login');
+  res.render('login',{user : req.user});
 });
 router.post('/login-user',passport.authenticate("local", 
   {
@@ -93,13 +93,63 @@ router.post('/login-user',passport.authenticate("local",
   function(req,res,next){}
 );
 
+//logout
+
+router.get('/logout:id', isloggedIn, function(req, res, next) {
+  req.logout(()=>{
+    res.render("/login")
+  });
+});
+
+
+
+router.get('/profile', isloggedIn, function(req, res, next) {
+  res.render('profile');
+});
+
+// mail verify
+
+router.get('/forget-email', function(req, res, next) {
+  res.render('Userforgetemail' ,{user : req.user});
+});
+
+router.post('/forget-email', async function(req, res, next) {
+  try {
+    const user = await registerUser.findOne({email : req.body.email})
+    if(user){
+      res.redirect(`/forget-password/${user._id}`)
+    }else{
+      res.redirect('/forget-email')
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// forget password
+
+router.get('/forget-password/:id', function(req, res, next) {
+  res.render('Userforgetpassword', {user : req.user , id:req.params.id});
+});
+
+router.post('/forget-password/:id', async function(req, res, next) {
+ try {
+  const user = await registerUser.findById(req.params.id)
+  await user.setPassword(req.body)
+  await user.save()
+  redirect("/login")
+ 
+ } catch (error) {
+  console.log(error);
+ }
+});
 
 router.get('/contact', function(req, res, next) {
-  res.render('contact');
+  res.render('contact' ,{user : req.user});
 });
 
 function isloggedIn(req, res, next){
-  if (req.authenticated()){
+  if (req.isAuthenticated()){
     return next()
   }else{
     res.redirect("/login")
