@@ -40,6 +40,9 @@ router.get('/readall', async function(req, res, next) {
 router.get('/delete/:id', async function(req, res, next) {
   try {
     await User.findByIdAndDelete(req.params.id)
+    fs.unlinkSync(
+      path.join(__dirname, "..", "public", "images", User.image)
+    );
     res.redirect("/readall")
   } catch (error) {
     console.log(error);
