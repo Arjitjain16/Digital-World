@@ -1,61 +1,34 @@
 <%- include("./partials/header.ejs") %>
 <%- include("./partials/navbar.ejs") %>
 <% readify.forEach((blog) => { %>
-    <div class="grid grid-row-4 py-5 px-4">
-        <div class="sm:first:col-span-2 py-14 px-11 rounded-lg max-w-lg" style="background-color: #FFE8D2;">
-            <h3 class="mb-4 text-black text-[22px] sm:text-[40px] font-extrabold leading-none">
-                <span><%= blog.title %></span>
-            </h3>
-            <div class="text-lg text-black leading-[1.8]">
-                <p><%= blog.description %></p>
+
+    <div class="">
+        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 m-[1vmax]">
+            <div class="relative h-56 mx-4 mt-2 overflow-hidden text-white shadow-lg bg-clip-border rounded-xl bg-blue-gray-500 shadow-blue-gray-500/40">
+                <img class="rounded-t-lg" src="/images/<%= blog.image %>" alt="Image" 
+                class="h-full w-full object-cover"/>
             </div>
-            <ul class="mt-6 sm:mt-10">
-                <li class="pt-2 pb-4 mb-2 last:mb-0 border-b border-black border-solid">
-                    <a class="flex items-center justify-between text-black hover:text-black text-lg sm:text-xl font-medium"
-                        href="#">
-                        <span class="m-width-full"><%= blog.blog %></span>
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M4.00002 7.45035e-05L13 7.42506e-05C13.5523 7.45035e-05 14 0.44779 14 1.00007V10.0001C14 10.5524 13.5523 11.0001 13 11.0001C12.4477 11.0001 12 10.5524 12 10.0001V3.41429L1.70712 13.7072L0.292908 12.293L10.5858 2.00007L4.00002 2.00007C3.44773 2.00007 3.00002 1.55236 3.00002 1.00007C3.00002 0.44779 3.44773 7.41663e-05 4.00002 7.45035e-05Z"
-                                fill="black"></path>
-                        </svg>
-                    </a>
-                </li>
-                <li class="pt-2 pb-4 mb-2 last:mb-0 border-b border-black border-solid">
-                    <a class="flex items-center justify-between text-black hover:text-black text-lg sm:text-xl font-medium"
-                        href="#">
-                        <span>Cold email templates</span>
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M4.00002 7.45035e-05L13 7.42506e-05C13.5523 7.45035e-05 14 0.44779 14 1.00007V10.0001C14 10.5524 13.5523 11.0001 13 11.0001C12.4477 11.0001 12 10.5524 12 10.0001V3.41429L1.70712 13.7072L0.292908 12.293L10.5858 2.00007L4.00002 2.00007C3.44773 2.00007 3.00002 1.55236 3.00002 1.00007C3.00002 0.44779 3.44773 7.41663e-05 4.00002 7.45035e-05Z"
-                                fill="black"></path>
-                        </svg>
-                    </a>
-                </li>
-                <li class="pt-2 pb-4 mb-2 last:mb-0 border-b border-black border-solid">
-                    <a class="flex items-center justify-between text-black hover:text-black text-lg sm:text-xl font-medium"
-                        href="#">
-                        <span>Subject line generator</span>
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                d="M4.00002 7.45035e-05L13 7.42506e-05C13.5523 7.45035e-05 14 0.44779 14 1.00007V10.0001C14 10.5524 13.5523 11.0001 13 11.0001C12.4477 11.0001 12 10.5524 12 10.0001V3.41429L1.70712 13.7072L0.292908 12.293L10.5858 2.00007L4.00002 2.00007C3.44773 2.00007 3.00002 1.55236 3.00002 1.00007C3.00002 0.44779 3.44773 7.41663e-05 4.00002 7.45035e-05Z"
-                                fill="black">
-                            </path>
-                        </svg>
-                    </a>
-                </li>
-            </ul>
-            <div class="mt-8 flex flex-row gap-4">
+            <div class="p-5">
+                <a href="#">
+                    <h5 class="mb-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white"><%= blog.title %></h5>
+                </a>
+                <p class="mb-3 text-2xl font-normal text-gray-700 dark:text-gray-400"><%= blog.blog %></p>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><%= blog.description %></p>
+            </div>
+            <div class="mt-8 flex flex-row gap-4 px-4">
                 <a href="/delete/<%= blog._id %>"
-                    class="bg-green-400 hover:shadow hover:bg-danger transition duration-150 px-2 py-2 rounded text-sm text-white mx-1 my-2">
+                    class="bg-green-400 hover:shadow hover:bg-danger transition duration-150 px-4 py-2 rounded text-sm text-white mx-1 my-2">
                     Delete
                 </a>
                 <a href="/update/<%= blog._id %>"
-                    class="bg-green-400 hover:shadow hover:bg-danger transition duration-150 px-2 py-2 rounded text-sm text-white mx-1 my-2">
+                    class="bg-green-400 hover:shadow hover:bg-danger transition duration-150 px-4 py-2 rounded text-sm text-white mx-1 my-2">
                     Update
                 </a>
             </div>
         </div>
     </div>
 <% }) %>
+
+
+
 <%- include("./partials/footer.ejs") %>

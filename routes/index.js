@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const User = require("../models/userSchema")
-const upload = require("../Utils/multer")
+const upload = require("../Utils/multer").single('image')
 const passport = require("passport")
 const LocalStategy = require("passport-local")
 const registerUser = require("../models/registerSchema")
@@ -17,9 +17,9 @@ router.get('/', function(req, res, next) {
 router.get('/blog', function(req, res, next) {
   res.render('blog');
 });
-router.post('/blog', upload.single('image'), async function(req, res, next) {
+router.post('/blog', upload, async function(req, res, next) {
   try {
-    const newBlogs = new User(req.body)
+    const newBlogs = new User({ ...req.body, image: req.file.filename})
     await newBlogs.save()
     res.redirect("/readall")
   } catch (error) {
@@ -104,7 +104,7 @@ router.get('/logout:id', isloggedIn, function(req, res, next) {
 
 
 router.get('/profile', isloggedIn, function(req, res, next) {
-  res.render('profile');
+  res.render('profile' , {user : req.user});
 });
 
 // mail verify
